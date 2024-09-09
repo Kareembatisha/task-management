@@ -1,12 +1,13 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom';
+// MemberRoute.jsx
+import { Navigate, Outlet } from "react-router-dom";
+import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
 
-function MemberRoute() {
+const MemberRoute = ({ isAuthenticated, userRole }) => {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <PrivateRoute isAuthenticated={isAuthenticated}>
+      {userRole === "member" ? <Outlet /> : <Navigate to="/login" />}
+    </PrivateRoute>
   );
-}
+};
 
-export default MemberRoute
+export default MemberRoute;

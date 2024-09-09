@@ -1,12 +1,14 @@
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import {  createBrowserRouter, RouterProvider } from 'react-router-dom'
-import AdminRoute from './Routes/AdminRoute/AdminRoute.jsx'
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AdminRoute from "./Routes/AdminRoute/AdminRoute.jsx";
 import MemberRoute from "./Routes/MemberRoute/MemberRoute.jsx";
-import AdminSignIn from './Pages/Admin/AdminSignIn/AdminSignIn.jsx'
-import MemberSignIn from "./Pages/Member/MemberSignIn/MemberSignIn.jsx";
 
+import Login from "./Pages/LogIn/Login.jsx";
+
+const isAuthenticated = true;
+const userRole = "admin";
 
 const router = createBrowserRouter([
   {
@@ -14,24 +16,20 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "login",
+    element: <Login userRole={userRole} />,
+  },
+  {
     path: "admin",
-    element: <AdminRoute />,
-    children: [
-      {
-        path: "login",
-        element: <AdminSignIn />,
-      },
-    ],
+    element: (
+      <AdminRoute isAuthenticated={isAuthenticated} userRole={userRole} />
+    ),
   },
   {
     path: "member",
-    element: <MemberRoute />,
-    children: [
-      {
-        path: "login",
-        element: <MemberSignIn />,
-      },
-    ],
+    element: (
+      <MemberRoute isAuthenticated={isAuthenticated} userRole={userRole} />
+    ),
   },
 ]);
 

@@ -1,12 +1,13 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+// AdminRoute.jsx
+import { Navigate, Outlet } from "react-router-dom";
+import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
 
-function AdminRoute() {
+const AdminRoute = ({ isAuthenticated, userRole }) => {
   return (
-    <div>
-      <Outlet/>
-    </div>
-  )
-}
+    <PrivateRoute isAuthenticated={isAuthenticated}>
+      {userRole === "admin" ? <Outlet /> : <Navigate to="/login" />}
+    </PrivateRoute>
+  );
+};
 
-export default AdminRoute
+export default AdminRoute;
